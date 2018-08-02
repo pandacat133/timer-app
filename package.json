@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material/form-field": "^0.38.0",
+    "@material/textfield": "^0.38.0",
+    "material-design-icons": "^3.0.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4"
