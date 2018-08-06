@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
@@ -12,14 +11,7 @@ app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
-  next();
-});
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/api/timers', (req, res) => {
   fs.readFile(DATA_FILE, (err, data) => {
@@ -55,7 +47,9 @@ app.post('/api/timers/start', (req, res) => {
       }
     });
     fs.writeFile(DATA_FILE, JSON.stringify(timers, null, 4), () => {
+      res.setHeader('Cache-Control', 'no-cache');
       res.json({});
+      res.end();
     });
   });
 });
@@ -71,7 +65,9 @@ app.post('/api/timers/stop', (req, res) => {
       }
     });
     fs.writeFile(DATA_FILE, JSON.stringify(timers, null, 4), () => {
+      res.setHeader('Cache-Control', 'no-cache');
       res.json({});
+      res.end();
     });
   });
 });
@@ -86,7 +82,9 @@ app.put('/api/timers', (req, res) => {
       }
     });
     fs.writeFile(DATA_FILE, JSON.stringify(timers, null, 4), () => {
+      res.setHeader('Cache-Control', 'no-cache');
       res.json({});
+      res.end();
     });
   });
 });
@@ -102,7 +100,9 @@ app.delete('/api/timers', (req, res) => {
       }
     }, []);
     fs.writeFile(DATA_FILE, JSON.stringify(timers, null, 4), () => {
+      res.setHeader('Cache-Control', 'no-cache');
       res.json({});
+      res.end();
     });
   });
 });
